@@ -28,7 +28,7 @@ export default function Home() {
     const fetched: Book[] = [];
     for (let id = 1; id <= maxId; id++) {
       try {
-        const res = await fetch(`http://127.0.0.1:6767/book/${id}`,
+        const res = await fetch(`https://supreme-space-cod-7v4pjqw57j95h4xg-6767.app.github.dev/book/${id}`,
           { method: "GET", mode: "cors" }
         );
         if (res.ok) {
@@ -50,7 +50,7 @@ export default function Home() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("http://127.0.0.1:6767/book", {
+  const res = await fetch("https://supreme-space-cod-7v4pjqw57j95h4xg-6767.app.github.dev/book", {
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
@@ -74,7 +74,7 @@ export default function Home() {
     setLoading(true);
     setError("");
     try {
-  await fetch(`http://127.0.0.1:6767/book/${id}`, { method: "DELETE", mode: "cors" });
+  await fetch(`https://supreme-space-cod-7v4pjqw57j95h4xg-6767.app.github.dev/book/${id}`, { method: "DELETE", mode: "cors" });
       fetchBooks();
     } catch {
       setError("Network error");
@@ -94,7 +94,7 @@ export default function Home() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`http://127.0.0.1:6767/book/${editId}`, {
+      const res = await fetch(`https://supreme-space-cod-7v4pjqw57j95h4xg-6767.app.github.dev/book/${editId}`, {
         method: "PUT",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
