@@ -1,0 +1,204 @@
+{
+	"info": {
+		"_postman_id": "canvas-api-collection-001",
+		"name": "Canvas LMS API - BookAPI",
+		"description": "Collection for testing Canvas LMS integration endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/courses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"courses"
+					]
+				},
+				"description": "Fetches all active courses from your Canvas account. Returns course details including ID, name, course code, and enrollment information."
+			},
+			"response": [
+				{
+					"name": "Success Response Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/courses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"courses"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"count\": 3,\n    \"data\": [\n        {\n            \"id\": 12345,\n            \"name\": \"Introduction to Computer Science\",\n            \"course_code\": \"CS101\",\n            \"enrollment_term_id\": 1,\n            \"workflow_state\": \"available\",\n            \"start_at\": \"2025-01-15T00:00:00Z\",\n            \"end_at\": \"2025-05-15T23:59:59Z\"\n        },\n        {\n            \"id\": 12346,\n            \"name\": \"Data Structures\",\n            \"course_code\": \"CS201\",\n            \"enrollment_term_id\": 1,\n            \"workflow_state\": \"available\",\n            \"start_at\": \"2025-01-15T00:00:00Z\",\n            \"end_at\": \"2025-05-15T23:59:59Z\"\n        },\n        {\n            \"id\": 12347,\n            \"name\": \"Web Development\",\n            \"course_code\": \"WEB301\",\n            \"enrollment_term_id\": 1,\n            \"workflow_state\": \"available\",\n            \"start_at\": \"2025-01-15T00:00:00Z\",\n            \"end_at\": \"2025-05-15T23:59:59Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Grades for Course",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/grades/:courseId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"grades",
+						":courseId"
+					],
+					"variable": [
+						{
+							"key": "courseId",
+							"value": "12345",
+							"description": "The Canvas course ID (get this from /courses endpoint)"
+						}
+					]
+				},
+				"description": "Fetches grades for all students enrolled in a specific course. Replace :courseId with an actual course ID from your Canvas account."
+			},
+			"response": [
+				{
+					"name": "Success Response Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/grades/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"grades",
+								"12345"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"course_id\": \"12345\",\n    \"count\": 2,\n    \"data\": [\n        {\n            \"user_id\": 67890,\n            \"user_name\": \"John Doe\",\n            \"course_id\": 12345,\n            \"current_grade\": \"A\",\n            \"current_score\": 95.5,\n            \"final_grade\": \"A\",\n            \"final_score\": 95.5,\n            \"enrollment_state\": \"active\"\n        },\n        {\n            \"user_id\": 67891,\n            \"user_name\": \"Jane Smith\",\n            \"course_id\": 12345,\n            \"current_grade\": \"B+\",\n            \"current_score\": 87.3,\n            \"final_grade\": \"B+\",\n            \"final_score\": 87.3,\n            \"enrollment_state\": \"active\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Error - Missing Course ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/grades/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"grades",
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"error\": \"Course ID is required\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Grades - Example with Different Course",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/grades/:courseId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"grades",
+						":courseId"
+					],
+					"variable": [
+						{
+							"key": "courseId",
+							"value": "67890",
+							"description": "Another example course ID"
+						}
+					]
+				},
+				"description": "Another example showing how to get grades for a different course. Simply change the courseId parameter."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
