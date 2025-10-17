@@ -90,9 +90,10 @@ function getAvailablePort(startPort, attempts = 20) {
   });
 }
 
+// If PORT is explicitly set in env, use it directly; otherwise probe for a free port
 (async () => {
   try {
-    const chosenPort = await getAvailablePort(PORT);
+    const chosenPort = process.env.PORT ? PORT : await getAvailablePort(PORT);
     server.listen(chosenPort, () => {
       console.log(`server running at http://localhost:${chosenPort}`);
       console.log(`socket.io mounted at http://localhost:${chosenPort}/chat`);
