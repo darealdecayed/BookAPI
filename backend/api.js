@@ -5,13 +5,13 @@ const { createServer } = require('node:http');
 const { join } = require('node:path');
 const { Server } = require('socket.io');
 const { create } = require("node:domain");
-require('dotenv').config();
+require('dotenv').config({ path: require('node:path').join(__dirname, '.env') });
 
 const app = express();
-const PORT = 6767;
+const PORT = process.env.PORT || 3000;
 
 // Import controllers
-const { getCourses, getGrades } = require('./controllers/CourseController');
+const { getCourses, getGrades, getAssignments } = require('./controllers/CourseController');
 
 // Enable CORS for all routes, allow all origins
 app.use(cors({
@@ -24,11 +24,11 @@ app.use(bodyParser.json());
 // Canvas API Routes
 app.get('/courses', getCourses);
 app.get('/grades/:courseId', getGrades);
+app.get('/courses/:courseId/assignments', getAssignments);
 
 
 // socket.io
 const server = createServer(app);
-// Mount Socket.IO on the /chat path so clients connect to http://<host>:<port>/chat
 const io = new Server(server, {
   cors: {
     origin: '*',
@@ -51,10 +51,29 @@ io.on("connection", (socket) => {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 🟢 Start server
-server.listen(3000, () => {
-  console.log('server running at http://localhost:3000');
-  console.log('socket.io mounted at http://localhost:3000/chat');
+server.listen(PORT, () => {
+  console.log(`server running at http://localhost:${PORT}`);
+  console.log(`socket.io mounted at http://localhost:${PORT}/chat`);
 });
 
 
