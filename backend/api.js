@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 
 // Import controllers
 const { getCourses, getGrades, getAssignments } = require('./controllers/CourseController');
+const { askAI } = require('./controllers/AIController');
 
 // Enable CORS for all routes, allow all origins
 app.use(cors({
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 app.get('/courses', getCourses);
 app.get('/grades/:courseId', getGrades);
 app.get('/courses/:courseId/assignments', getAssignments);
+app.post('/ai/ask', askAI);
 
 
 // socket.io

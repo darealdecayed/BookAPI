@@ -172,6 +172,60 @@
 				"description": "Another example showing how to get grades for a different course. Simply change the courseId parameter."
 			},
 			"response": []
+		},
+		{
+			"name": "Ask AI",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"prompt\": \"Say hello from AI, and continue with a helpful greeting to the user explaining what you can do.\",\n  \"max_tokens\": 256,\n  \"temperature\": 0.2\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/ai/ask",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"ai",
+						"ask"
+					]
+				},
+				"description": "Send a prompt to the AI model and receive a text response. Requires @langchain/openai and OPENAI_API_KEY in backend/.env."
+			},
+			"response": [
+				{
+					"name": "Success Response Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n  \"prompt\": \"Say hello from AI\"\n}" },
+						"url": { "raw": "{{baseUrl}}/ai/ask" }
+					},
+					"status": "OK",
+					"code": 200,
+					"header": [ { "key": "Content-Type", "value": "application/json" } ],
+					"cookie": [],
+					"body": "{\n  \"success\": true,\n  \"text\": \"Hello from AI!\"\n}"
+				},
+				{
+					"name": "Error - Missing Prompt",
+					"originalRequest": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{}" },
+						"url": { "raw": "{{baseUrl}}/ai/ask" }
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"header": [ { "key": "Content-Type", "value": "application/json" } ],
+					"cookie": [],
+					"body": "{\n  \"success\": false,\n  \"error\": \"Missing prompt\"\n}"
+				}
+			]
 		}
 	],
 	"event": [
